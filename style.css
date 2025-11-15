@@ -1,0 +1,485 @@
+/* 全体リセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ====== 背景とフォント設定 ====== */
+body {
+  font-family: "Zen Maru Gothic", "Rounded Mplus 1c", "Yu Gothic", sans-serif;
+  color: #444;
+  overflow-x: hidden;
+
+  /* 雲と山のグラデーション背景 */
+  background: linear-gradient(to top, #b2e0ff 0%, #dff6ff 60%, #ffffff 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* ====== 山のイラストを背景に追加 ====== */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to top, rgb(100, 15, 15) 55px, transparent 0%),
+    url('image/mountain_.png') repeat-x bottom;
+  background-size: contain;
+  z-index: -1;
+}
+
+/* ====== 雲の装飾 ====== */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 250px;
+  background: url('image/cloud_.png') repeat-x top;
+  background-size: contain;
+  animation: moveClouds 60s linear infinite;
+  opacity: 0.7;
+  z-index: -2;
+}
+
+/* 雲をゆっくり動かすアニメーション */
+@keyframes moveClouds {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* ====== ヘッダー部分 ====== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-bottom: 3px solid #a7d3ff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+header h1 {
+  font-size: 42px;
+  color: #3b84c6;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+header h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ====== メニューアイコン ====== */
+#open,
+#close {
+  font-size: 48px;
+  cursor: pointer;
+  color: #4aa0e2;
+  transition: transform 0.3s;
+
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+#open:hover,
+#close:hover {
+  transform: scale(1.2);
+}
+
+/* ====== オーバーレイメニュー ====== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(120, 180, 255, 0.95);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  z-index: 100;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ====== メニュー項目 ====== */
+.nav-menu {
+  margin-top: 120px;
+  list-style: none;
+}
+
+.nav-menu li {
+  padding: 25px 0;
+}
+
+.nav-menu a {
+  font-size: 24px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.nav-menu a:hover {
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+}
+
+/* ====== SNSリンク ====== */
+.nav-sns {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  list-style: none;
+}
+
+.nav-sns li {
+  padding: 0 15px;
+}
+
+.nav-sns a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* ---------------main--------------- */
+.animal-container,
+.news-conainer {
+  background-color: rgb(43, 196, 43);
+  border-radius: 35px;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 70px;
+  line-height: 65px;
+}
+
+.animal-container h2 {
+  margin-top: 50px;
+  font-size: 36px;
+  text-align: center;
+}
+
+.animals {
+  display: grid;
+  /* 3列で均等に分割 */
+  grid-template-columns: 1fr 1fr 1fr;
+  /* 3行で均等に分割 */
+  grid-template-rows: 1fr 1fr 1fr;
+  /* アイテム間にスペース */
+  grid-gap: 20px;
+  margin: 40px auto 20px;
+  max-width: 1300px;
+}
+
+.animals article {
+  padding: 20px 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.animals article h3,
+.video h3 {
+  color: #3b84c6;
+  font-size: 28px;
+}
+
+.animals span,
+.video span {
+  color: black;
+  font-size: 20px;
+}
+
+.animals p,
+.video p {
+  padding: 15px 10px 0;
+  font-size: 20px;
+}
+
+/* ふりがな */
+.animals rt,
+.video rt {
+  color: #3b84c6;
+}
+
+.video {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  /* .commentのposition決めのために必要 */
+  position: relative;
+}
+
+.comment {
+  position: absolute;
+  right: 20px;
+}
+
+/* ====== 動画の装飾 ====== */
+main video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 動画クリック無効 */
+#video.nottouch {
+  pointer-events: none;
+}
+
+
+/* -----------------news------------------- */
+.news-pic {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.news-pic h2 {
+  margin-top: 120px;
+  font-size: 36px;
+  text-align: center;
+}
+
+.news-pic ul {
+  margin: 60px auto 0;
+  max-width: 800px;
+}
+
+.news-pic li {
+  display: flex;
+  margin: 30px 0;
+  border-bottom: 1px solid #444;
+}
+
+.news-pic p {
+  padding-left: 80px;
+}
+
+.news-pic a {
+  color: black;
+  text-align: left;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.news-pic a:hover {
+  color: #444;
+}
+
+
+/* -------------------footer------------------ */
+footer {
+  margin-top: 120px;
+
+}
+
+.top-back {
+  width: 190px;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.top-back:hover {
+  color: #444;
+  border-bottom: 1px solid #444;
+}
+
+footer div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 110px;
+  line-height: 55px;
+  background-color: rgb(100, 15, 15);
+}
+
+footer ul {
+  display: flex;
+}
+
+footer li {
+  padding: 0 30px;
+  list-style: none;
+}
+
+footer a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bolder;
+  color: rgb(43, 196, 43);
+}
+
+footer a:hover {
+  font-weight: bolder;
+}
+
+footer div p {
+  padding-right: 30px;
+  font-weight: bolder;
+  color: rgb(43, 196, 43);
+}
+
+
+
+
+/* -------------スマホサイズ------------- */
+@media (max-width:800px) {
+
+  /* ====== 山のイラストを背景に追加 ====== */
+  body::before {
+    height: 200px;
+    background: linear-gradient(to top, rgb(100, 15, 15) 36px, transparent 0%)
+      /* ←山の下の土色 */
+      ,
+      url('image/mountain_.png') repeat-x bottom;
+    background-size: contain;
+  }
+
+  /* ====== 雲の装飾 ====== */
+  body::after {
+    height: 150px;
+  }
+
+
+  /* ====== ヘッダー部分 ====== */
+  header {
+    height: 100px;
+  }
+
+  header h1 {
+    font-size: 36px;
+  }
+
+  /* ====== メニューアイコン ====== */
+  #open,
+  #close {
+    font-size: 40px;
+
+    top: 30px;
+  }
+
+
+  /* ====== メニュー項目 ====== */
+  .nav-menu a {
+    font-size: 22px;
+  }
+
+  /* ---------------main--------------- */
+  .animal-container,
+  .news-conainer {
+    max-width: 350px;
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .animal-container h2 {
+    font-size: 30px;
+  }
+
+  .animals {
+    /* 2列で均等に分割 */
+    grid-template-columns: 1fr 1fr;
+    /* 6行で均等に分割 */
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* アイテム間にスペース */
+    grid-gap: 15px;
+    margin-bottom: 15px;
+    max-width: 95%;
+  }
+
+  .animals article h3,
+  .video h3 {
+    font-size: 24px;
+  }
+
+  .animals span,
+  .video span {
+    font-size: 18px;
+  }
+
+  .animals p,
+  .video p {
+    font-size: 18px;
+  }
+
+  .video {
+    max-width: 95%;
+  }
+
+  .comment {
+    position: absolute;
+    right: 20px;
+  }
+
+
+  /* -----------------news------------------- */
+  .news-pic {
+    max-width: 95%;
+  }
+
+  .news-pic h2 {
+    font-size: 30px;
+  }
+
+  .news-pic ul {
+    max-width: 100%;
+  }
+
+
+  .news-pic a {
+    font-size: 18px;
+  }
+
+  .news-pic a:hover {
+    color: #444;
+  }
+
+
+  /* -------------------footer------------------ */
+  .top-back {
+    width: 175px;
+    font-size: 18px;
+  }
+
+  footer div {
+    display: block;
+    text-align: center;
+  }
+
+  footer ul {
+    display: flex;
+    text-align: center;
+  }
+
+  footer li {
+    margin: 0 auto;
+  }
+
+  footer div p {
+    padding: 0;
+  }
+}
